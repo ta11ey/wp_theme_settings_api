@@ -8,7 +8,6 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 
 import Create from './src/containers/Create.jsx';
 import App from './src/App.js';
-import Routes from './src/routes.jsx'
 import './src/index.css';
 import * as reducers from './src/reducers/index.js';
 

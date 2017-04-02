@@ -1,1 +1,1 @@
-import * as create from './create.js'
+export {default as create} from './create.js'
