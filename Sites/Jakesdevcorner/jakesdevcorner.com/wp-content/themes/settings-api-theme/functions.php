@@ -10,6 +10,58 @@
  * This function is registered with the 'admin_init' hook.
  */
  add_action('admin_init', 'sandbox_initialize_theme_options');
+ add_action('admin_menu', 'sandbox_create_menu_page');
+ add_action('admin_menu', 'sandbox_plugin_menu');
+
+ function sandbox_plugin_menu() {
+   add_plugins_page(
+     'My Custom Plugin',
+     'Sandbox Plugin',
+     'administrator',
+     'sandbox_plugin',
+     'sandbox_plugin_page'
+   );
+ }
+
+ function sandbox_plugin_page() {
+   echo 'sup I\'m a plugin page bitch';
+ }
+ function sandbox_create_menu_page () {
+   add_menu_page(
+     'Sandbox Options',
+     'Sandbox',
+     'administrator',
+     'sandbox',
+     'sandbox_menu_page_display'
+   );
+
+   add_submenu_page(
+     'sandbox',
+     'Sub Menu Dog',
+     'menu text dog',
+     'administrator',
+     'sandbox_options',
+     'sandbox_submenu_page_display'
+   );
+ }
+
+ function sandbox_submenu_page_display() {
+   // Create a header in the default WordPress 'wrap' container
+    $html = '<div class="wrap">';
+        $html .= '<h2>Sandbox Options</h2>';
+    $html .= '</div>';
+
+    // Send the markup to the browser
+    echo $html;
+ }
+
+ function sandbox_menu_page_display() {
+   $html = '<div class="wrap" >';
+    $html .= '<h2>Sandbox</h2>';
+   $html .= '</div>';
+   echo $html;
+ }
+
  function sandbox_initialize_theme_options() {
    add_settings_section(
       'general_settings_section',
