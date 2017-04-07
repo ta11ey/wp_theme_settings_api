@@ -4,18 +4,22 @@
         <title>The Complete Guide To The Settings API | Sandbox Theme</title>
     </head>
     <body>
+        <?php  if( get_option('show_header')) {?>
+          <div id="header">
+              <h1>Sandbox Header</h1>
+          </div><!-- /#header -->
+        <?php } ?>
 
-        <div id="header">
-            <h1>Sandbox Header</h1>
-        </div><!-- /#header -->
+        <?php  if( get_option('show_content')) {?>
+          <div id="content">
+              <p>This is theme content.</p>
+          </div><!-- /#content -->
+        <?php } ?>
 
-        <div id="content">
-            <p>This is theme content.</p>
-        </div><!-- /#content -->
-
-        <div id="footer">
-            <p>&copy; <?php echo date('Y'); ?> All Rights Reserved.</p>
-        </div><!-- /#footer -->
-
+        <?php  if( get_option('show_footer')) {?>
+          <div id="footer">
+              <p>&copy; <?php echo date('Y'); ?> All Rights Reserved.</p>
+          </div><!-- /#footer -->
+        <?php } ?>
     </body>
 </html>
