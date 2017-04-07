@@ -18,19 +18,23 @@
       'general'
     );
 
-
     /**
     * setting to toggle visibility of elements on page
     */
-
   add_settings_field(
     'show_header',
     'Header',
     'sandbox_toggle_header_callback',
+    'general',
     'general_settings_section',
     array(
       'Activate this setting to display the header.'
     )
+  );
+
+  register_setting(
+    'general',
+    'show_header'
   );
  };// end sandbox_initialize_theme_options
 
