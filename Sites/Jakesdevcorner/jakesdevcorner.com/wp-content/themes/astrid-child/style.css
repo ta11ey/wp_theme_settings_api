@@ -1,0 +1,11 @@
+/*
+Theme Name: Astrid Child
+Theme URI: http: //mysite.com/
+Description: This is a custom child theme I have created.
+Author: Jake Talley
+Author URI: http: //mysite.com/
+Template: astrid
+Version: 0.1
+*/
+
+@import url("../astrid/style.css");
