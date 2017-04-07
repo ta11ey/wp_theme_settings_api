@@ -12,6 +12,17 @@
  add_action('admin_init', 'sandbox_initialize_theme_options');
  add_action('admin_menu', 'sandbox_create_menu_page');
  add_action('admin_menu', 'sandbox_plugin_menu');
+ add_action('admin_menu', 'sandbox_theme_menu');
+
+ function sandbox_theme_menu () {
+   add_theme_page(
+     'Sandbox Theme Page',
+     'Sandbox Theme Custom',
+     'administrator',
+     'sandbox_theme',
+     'sandbox_theme_page'
+   );
+ }
 
  function sandbox_plugin_menu() {
    add_plugins_page(
@@ -21,6 +32,10 @@
      'sandbox_plugin',
      'sandbox_plugin_page'
    );
+ }
+
+ function sandbox_theme_page() {
+   echo 'I\'m a theme page bitch';
  }
 
  function sandbox_plugin_page() {
