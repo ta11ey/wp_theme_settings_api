@@ -48,7 +48,7 @@
 	<div class="header-image">
 		<?php astrid_header_text(); ?>
 		<img class="large-header" src="<?php header_image(); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" alt="<?php bloginfo('name'); ?>">
-		
+
 		<?php $mobile_default = get_template_directory_uri() . '/images/header-mobile.jpg'; ?>
 		<?php $mobile = get_theme_mod('mobile_header', $mobile_default); ?>
 		<?php if ( $mobile ) : ?>
@@ -69,7 +69,7 @@
 		<?php echo do_shortcode(wp_kses_post($single_toggle)); ?>
 	<?php else : ?>
 	<div class="header-clone"></div>
-	<?php endif; ?>	
+	<?php endif; ?>
 
 	<?php if ( !is_page_template('page-templates/page_widgetized.php') ) : ?>
 		<?php $container = 'container'; ?>

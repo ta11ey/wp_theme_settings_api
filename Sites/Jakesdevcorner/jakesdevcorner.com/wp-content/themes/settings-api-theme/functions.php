@@ -10,10 +10,9 @@
  * This function is registered with the 'admin_init' hook.
  */
  add_action('admin_init', 'sandbox_initialize_theme_options');
+
+ //adds the sandbox theme menu item to the appearance menu
  add_action('admin_menu', 'sandbox_theme_menu');
-
-
-
  function sandbox_theme_menu () {
    add_theme_page(
      'Sandbox Theme Page',
@@ -34,6 +33,8 @@
         <div id="icon-themes" class="icon32"></div>
         <h2>Sandbox Theme Options</h2>
 
+
+
         <!-- Make a call to the WordPress function for rendering errors when settings are saved. -->
         <?php settings_errors(); ?>
 
@@ -41,6 +42,10 @@
         <form method="post" action="options.php">
             <?php settings_fields( 'sandbox_theme_display_options' ); ?>
             <?php do_settings_sections( 'sandbox_theme_display_options' ); ?>
+
+            <?php settings_fields('sandbox_theme_social_options');?>
+            <?php do_settings_sections( 'sandbox_theme_social_options' ); ?>
+
             <?php submit_button(); ?>
         </form>
 
@@ -150,4 +155,114 @@
 /**
 * initializes themes social options by registering the Sections, Fields, and settings
 */
+add_action('admin_init', 'sandbox_theme_intialize_social_options');
+function sandbox_theme_intialize_social_options() {
+  if (false == get_option('sandbox_theme_social_options')) {
+    add_option('sandbox_theme_social_options');
+  }
+
+  add_settings_section(
+    'social_settings_section',
+    'Social Options',
+    'sandbox_social_options_callback',
+    'sandbox_theme_social_options'
+  );
+
+  add_settings_field(
+    'twitter',
+    'Twitter',
+    'sandbox_twitter_callback',
+    'sandbox_theme_social_options',
+    'social_settings_section'
+  );
+
+  add_settings_field(
+    'facebook',
+    'Facebook',
+    'sandbox_facebook_callback',
+    'sandbox_theme_social_options',
+    'social_settings_section'
+);
+
+add_settings_field(
+    'googleplus',
+    'Google+',
+    'sandbox_googleplus_callback',
+    'sandbox_theme_social_options',
+    'social_settings_section'
+);
+
+  register_setting(
+    'sandbox_theme_social_options',
+    'sandbox_theme_social_options',
+    'sandbox_theme_sanitize_social_options' // callback to sanitize input
+  );
+
+
+}
+
+function sandbox_facebook_callback() {
+
+    $options = get_option( 'sandbox_theme_social_options' );
+
+    $url = '';
+    if( isset( $options['facebook'] ) ) {
+        $url = $options['facebook'];
+    } // end if
+
+    // Render the output
+    echo '<input type="text" id="facebook" name="sandbox_theme_social_options[facebook]" value="' . $options['facebook'] . '" />';
+
+} // end sandbox_facebook_callback
+
+function sandbox_googleplus_callback() {
+
+    $options = get_option( 'sandbox_theme_social_options' );
+
+    $url = '';
+    if( isset( $options['googleplus'] ) ) {
+        $url = $options['googleplus'];
+    } // end if
+
+    // Render the output
+    echo '<input type="text" id="googleplus" name="sandbox_theme_social_options[googleplus]" value="' . $options['googleplus'] . '" />';
+
+} // end sandbox_googleplus_callback
+
+function sandbox_twitter_callback() {
+  $options = get_option('sandbox_theme_social_options');
+
+  $url = '';
+  if (isset($options['twitter'])) {
+    $url = $options['twitter'];
+  }
+
+
+echo '<input type="text" id="twitter" name="sandbox_theme_social_options[twitter]" value="'
+  . $options['twitter']
+  . '" />';
+}
+
+function sandbox_theme_sanitize_social_options( $input ) {
+
+    // Define the array for the updated options
+    $output = array();
+
+    // Loop through each of the options sanitizing the data
+    foreach( $input as $key => $val ) {
+
+        if( isset ( $input[$key] ) ) {
+            $output[$key] = esc_url_raw( strip_tags( stripslashes( $input[$key] ) ) );
+        } // end if
+
+    } // end foreach
+
+    // Return the new collection
+    return apply_filters( 'sandbox_theme_sanitize_social_options', $output, $input );
+
+} // end sandbox_theme_sanitize_social_options
+
+function sandbox_social_options_callback() {
+  echo '<p>Provide the URL to the social networks you\'d like to display.</p>';
+}
 ?>
